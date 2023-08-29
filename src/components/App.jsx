@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
-import { nanoid } from 'nanoid';
-import { Contacts } from './ContactsList/ContactsList';
+import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
 
 export class App extends Component {
@@ -9,35 +8,18 @@ export class App extends Component {
     contacts: [],
     filter: '',
   };
-  addContact = evt => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    const newContact = form.elements.name.value;
-    const newNumber = form.elements.number.value;
-    const newId = nanoid();
-    let alreadyIn = false;
+  addContact = contact => {
+    const alreadyIn = this.state.contacts.find(
+      existingContact => existingContact.name === contact.name
+    );
+    if (alreadyIn) {
+      alert(`${contact.name} is already in contacts`);
+      return;
+    }
 
-    this.state.contacts.forEach(contact => {
-      if (contact.name.toLowerCase() === newContact.toLowerCase()) {
-        alreadyIn = true;
-        return;
-      }
+    this.setState(prevState => {
+      return (prevState.contacts = [...prevState.contacts, contact]);
     });
-    this.setState(state => {
-      if (!alreadyIn) {
-        return (state.contacts = [
-          ...state.contacts,
-          {
-            name: newContact,
-            number: newNumber,
-            id: newId,
-          },
-        ]);
-      } else {
-        alert(`${newContact} is already in contacts`);
-      }
-    });
-    form.reset();
   };
   removeContact = id => {
     this.setState(state => ({
@@ -46,6 +28,11 @@ export class App extends Component {
   };
   handleFilterState = evt => {
     this.setState({ filter: evt.target.value });
+  };
+  filteredContacts = ({ contacts, filter }) => {
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
   render() {
     return (
@@ -70,10 +57,10 @@ export class App extends Component {
             <h2>Contacts</h2>
 
             <Filter onChange={this.handleFilterState}></Filter>
-            <Contacts
-              props={this.state}
+            <ContactsList
+              props={this.filteredContacts(this.state)}
               removeContact={this.removeContact}
-            ></Contacts>
+            />
           </>
         )}
       </div>

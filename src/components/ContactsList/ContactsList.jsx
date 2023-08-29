@@ -1,18 +1,15 @@
 import { ListItem, Button, Number } from './ContactList.styled';
-export const Contacts = ({ props: { contacts, filter }, removeContact }) => {
+export const ContactsList = ({ props }, removeContact) => {
   return (
     <div>
       <ul>
-        {contacts.map(({ name, id, number }) => {
-          if (name.toLowerCase().includes(filter.toLowerCase())) {
-            return (
-              <ListItem key={id}>
-                {name}: <Number>{number}</Number>
-                <Button onClick={() => removeContact(id)}>Delete</Button>
-              </ListItem>
-            );
-          }
-          return '';
+        {props.map(({ name, id, number }) => {
+          return (
+            <ListItem ListItem key={id}>
+              {name}: <Number>{number}</Number>
+              <Button onClick={() => removeContact(id)}>Delete</Button>
+            </ListItem>
+          );
         })}
       </ul>
     </div>
