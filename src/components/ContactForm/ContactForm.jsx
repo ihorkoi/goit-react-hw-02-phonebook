@@ -6,21 +6,18 @@ export class ContactForm extends Component {
   handleContact = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    const newContact = form.elements.name.value;
-    const newNumber = form.elements.number.value;
-    const newId = nanoid();
-    form.reset();
+    const { name, number } = form.elements;
 
-    return {
-      name: newContact,
-      number: newNumber,
-      id: newId,
-    };
+    this.props.onSubmit({
+      name: name.value,
+      number: number.value,
+      id: nanoid(),
+    });
+    form.reset();
   };
   render() {
-    const { onSubmit } = this.props;
     return (
-      <Form action="" onSubmit={evt => onSubmit(this.handleContact(evt))}>
+      <Form action="" onSubmit={handleContact(evt)}>
         <label>
           Name
           <Input

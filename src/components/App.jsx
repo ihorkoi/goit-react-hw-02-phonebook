@@ -10,7 +10,8 @@ export class App extends Component {
   };
   addContact = contact => {
     const alreadyIn = this.state.contacts.find(
-      existingContact => existingContact.name === contact.name
+      existingContact =>
+        existingContact.name.toLowerCase() === contact.name.toLowerCase()
     );
     if (alreadyIn) {
       alert(`${contact.name} is already in contacts`);
@@ -18,7 +19,7 @@ export class App extends Component {
     }
 
     this.setState(prevState => {
-      return (prevState.contacts = [...prevState.contacts, contact]);
+      return { contacts: [...prevState.contacts, contact] };
     });
   };
   removeContact = id => {
