@@ -1,9 +1,10 @@
+import { Form, Input, Button } from './ContactForm.styled';
 export const ContactForm = ({ onSubmit }) => {
   return (
-    <form action="" onSubmit={onSubmit}>
+    <Form action="" onSubmit={onSubmit}>
       <label>
         Name
-        <input
+        <Input
           type="text"
           name="name"
           pattern="^[a-zA-Za-яА-Я]+(([' \-][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
@@ -13,7 +14,7 @@ export const ContactForm = ({ onSubmit }) => {
       </label>
       <label>
         Number
-        <input
+        <Input
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
@@ -21,7 +22,7 @@ export const ContactForm = ({ onSubmit }) => {
           required
         />
       </label>
-      <button>Add contact</button>
-    </form>
+      <Button>Add contact</Button>
+    </Form>
   );
 };

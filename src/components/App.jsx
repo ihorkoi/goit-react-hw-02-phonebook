@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
-import { Contacts } from './Contacts/Contacts';
+import { Contacts } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
 
 export class App extends Component {
@@ -63,13 +63,19 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact}></ContactForm>
 
-        <h2>Contacts</h2>
+        {this.state.contacts.length === 0 ? (
+          <p>You don`t have any contact yet</p>
+        ) : (
+          <>
+            <h2>Contacts</h2>
 
-        <Filter onChange={this.handleFilterState}></Filter>
-        <Contacts
-          props={this.state}
-          removeContact={this.removeContact}
-        ></Contacts>
+            <Filter onChange={this.handleFilterState}></Filter>
+            <Contacts
+              props={this.state}
+              removeContact={this.removeContact}
+            ></Contacts>
+          </>
+        )}
       </div>
     );
   }
