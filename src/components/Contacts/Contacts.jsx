@@ -17,6 +17,7 @@ export class Contacts extends Component {
                 </li>
               );
             }
+            return '';
           })}
         </ul>
       </div>
