@@ -1,11 +1,12 @@
 import { ListItem, Button, Number } from './ContactList.styled';
+
 export const ContactsList = ({ props, removeContact }) => {
   return (
     <div>
       <ul>
         {props.map(({ name, id, number }) => {
           return (
-            <ListItem ListItem key={id}>
+            <ListItem key={id}>
               {name}: <Number>{number}</Number>
               <Button onClick={() => removeContact(id)}>Delete</Button>
             </ListItem>
