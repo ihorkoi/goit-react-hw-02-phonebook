@@ -1,26 +1,28 @@
 import { Component } from 'react';
 
-export class Contacts extends Component {
-  render() {
-    const {
-      props: { contacts, filter },
-    } = this.props;
-    return (
-      <div>
-        <h1>Contacts</h1>
-        <ul>
-          {contacts.map(({ name, id, number }) => {
-            if (name.toLowerCase().includes(filter.toLowerCase())) {
-              return (
-                <li key={id}>
-                  {name} {number}
-                </li>
-              );
-            }
-            return '';
-          })}
-        </ul>
-      </div>
-    );
-  }
-}
+export const Contacts = ({ props: { contacts, filter }, removeContact }) => {
+  // render() {
+  //   console.log(this.props);
+  //   const {
+  //     props: { contacts, filter },
+  //     removeContact,
+  //   } = this.props;
+  return (
+    <div>
+      <ul>
+        {contacts.map(({ name, id, number }) => {
+          if (name.toLowerCase().includes(filter.toLowerCase())) {
+            return (
+              <li key={id}>
+                {name} {number}
+                <button onClick={() => removeContact(id)}>Delete</button>
+              </li>
+            );
+          }
+          return '';
+        })}
+      </ul>
+    </div>
+  );
+};
+// }

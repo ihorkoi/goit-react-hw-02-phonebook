@@ -1,11 +1,6 @@
 export const ContactForm = ({ onSubmit }) => {
   return (
-    <form
-      action=""
-      onSubmit={onSubmit}
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
-      <legend>Phonebook</legend>
+    <form action="" onSubmit={onSubmit}>
       <label>
         Name
         <input

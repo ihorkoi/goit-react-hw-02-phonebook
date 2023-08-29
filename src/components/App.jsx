@@ -6,12 +6,7 @@ import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
   addContact = evt => {
@@ -19,23 +14,38 @@ export class App extends Component {
     const form = evt.currentTarget;
     const newContact = form.elements.name.value;
     const newNumber = form.elements.number.value;
-
     const newId = nanoid();
+    let alreadyIn = false;
+
+    this.state.contacts.forEach(contact => {
+      if (contact.name.toLowerCase() === newContact.toLowerCase()) {
+        alreadyIn = true;
+        return;
+      }
+    });
     this.setState(state => {
-      return (state.contacts = [
-        ...state.contacts,
-        {
-          name: newContact,
-          number: newNumber,
-          id: newId,
-        },
-      ]);
+      if (!alreadyIn) {
+        return (state.contacts = [
+          ...state.contacts,
+          {
+            name: newContact,
+            number: newNumber,
+            id: newId,
+          },
+        ]);
+      } else {
+        alert(`${newContact} is already in contacts`);
+      }
     });
     form.reset();
   };
+  removeContact = id => {
+    this.setState(state => ({
+      contacts: state.contacts.filter(contact => contact.id !== id),
+    }));
+  };
   handleFilterState = evt => {
     this.setState({ filter: evt.target.value });
-    console.log(this.state);
   };
   render() {
     return (
@@ -50,9 +60,16 @@ export class App extends Component {
           color: '#010101',
         }}
       >
+        <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact}></ContactForm>
+
+        <h2>Contacts</h2>
+
         <Filter onChange={this.handleFilterState}></Filter>
-        <Contacts props={this.state}></Contacts>
+        <Contacts
+          props={this.state}
+          removeContact={this.removeContact}
+        ></Contacts>
       </div>
     );
   }
