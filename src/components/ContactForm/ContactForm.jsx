@@ -17,7 +17,7 @@ export class ContactForm extends Component {
   };
   render() {
     return (
-      <Form action="" onSubmit={handleContact(evt)}>
+      <Form action="" onSubmit={this.handleContact}>
         <label>
           Name
           <Input
