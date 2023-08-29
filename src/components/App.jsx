@@ -16,7 +16,6 @@ export class App extends Component {
     this.setState(state => {
       state.contacts.push({ name: newContact, id: newId });
     });
-    console.log(this.state);
   };
   render() {
     return (
@@ -25,6 +24,7 @@ export class App extends Component {
           height: '100vh',
           display: 'flex',
           justifyContent: 'center',
+          flexDirection: 'column',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
