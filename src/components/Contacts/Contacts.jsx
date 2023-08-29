@@ -1,12 +1,4 @@
-import { Component } from 'react';
-
 export const Contacts = ({ props: { contacts, filter }, removeContact }) => {
-  // render() {
-  //   console.log(this.props);
-  //   const {
-  //     props: { contacts, filter },
-  //     removeContact,
-  //   } = this.props;
   return (
     <div>
       <ul>
