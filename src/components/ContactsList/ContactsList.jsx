@@ -1,5 +1,5 @@
 import { ListItem, Button, Number } from './ContactList.styled';
-export const ContactsList = ({ props }, removeContact) => {
+export const ContactsList = ({ props, removeContact }) => {
   return (
     <div>
       <ul>
